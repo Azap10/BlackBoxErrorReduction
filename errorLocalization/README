@@ -1,0 +1,30 @@
+This directory contains two programs, mpfrErrorLocalization requires the MPFR library to be
+installed on the machine in order to run. Both programs can be compiled by running `make`
+
+errorLocalization uses the comparison of the difference of squares with its rewritten
+counterpart (error-free) to try to track sources of error. mpfrErrorLocalization is a similar
+program which uses comparison to a 200-bit MPFR representation in order to achieve a similar
+effect, though its methods are more broadly applicable without requiring specific knowledge of
+rewrite rules.
+
+errorLocalization can be run simply with ./errorLocalization [xCenter] [yCenter] and will
+output a ppm file containing a 1000x1000 epsilon/pixel (where epsilon is the smallest possible 
+floating point value) range displaying the difference between the erroneous and rewritten
+representations of the difference of squares around xCenter and yCenter. 
+
+More interesting results were obtained in the report with mpfrErrorLocalization. This program 
+can be run by calling:
+
+./mpfrErrorLocalization [xCenter] [yCenter] [0=diffSquares, 1=determinant] [0=zero-rounding, 1=difference]
+
+The two provided functions are relatively self-explanatory aside from the fact that
+the determinant is made to be a 2-input function by defaulting the "a" value to 2e-31. The two
+display modes are zero-rounding (bright highlight of pixels whose values are 0 for the 32-bit
+reprentation and != 0 for the 200-bit representation) and difference (simply the difference between
+the representations).
+
+Figures 2, 3, and 4 were respectively generated with the following commands:
+
+./mpfrErrorLocalization 2.0 2147483648 1 1
+./mpfrErrorLocalization 3.5 3.5 0 1
+./mpfrErrorLocalization 2.0 2147483648 1 0

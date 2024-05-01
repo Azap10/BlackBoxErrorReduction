@@ -1,0 +1,28 @@
+Type `make` to create the functionPatching binary.
+
+functionPatching is a program demonstrating the working example of difference of squares function
+patching. The program implements the generated property as a means of patching the difference
+of squares function. By calling 
+
+./functionPatching [x] [y] [xErrMin] [xErrMax] [yErrMin] [yErrMax] [accuracy]
+
+the user will do two things: first, the adjusted output for f(x,y) where f() is the difference of
+squares will be calculated and printed in the terminal. Second, the program will generate a file
+named functionPatching.ppm which provides a visual representation of the function patch. Each pixel in
+the ppm output represents a 0.001 x 0.001 region of the function output, a value which is set with
+the macro "GRANULARITY". The total number of pixels is 1000x1000 due to the calculation done by the
+macro "RADIUS" with the aforementioned granularity.
+
+x values will be patched in the range [xErrMin, xErrMax) and y values will be patched in the range
+[yErrMin, yErrMax). The size of the buffer region (as described in the paper) is dictated by the
+`accuracy` argument. The width of the buffer region in the x direction and y direction are:
+
+(xErrMax - xErrMin) / accuracy
+(yErrMax - yErrMin) / accuracy
+
+respectively. The generated ppm will be centered around the (x,y) pair in the first two arguments.
+Figures 5, 6, and 7 in the paper were respectively generated with the following commands:
+
+./functionPatching 3.5 3.6 3.4 3.6 3.4 3.6 5
+./functionPatching 3.5 3.6 3.4 3.6 3.4 3.6 20
+./functionPatching 3.5 3.6 3.4 3.6 3.4 3.6 100
